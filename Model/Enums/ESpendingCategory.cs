@@ -3,6 +3,7 @@
     public enum ESpendingCategory
     {
         Alquiler = 1,
+        Ahorros,
         Servicio,
         Impuesto,
         Debito,

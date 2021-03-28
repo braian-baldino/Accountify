@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Model.Entities
 {
@@ -10,6 +11,8 @@ namespace Model.Entities
         public string Model { get; set; }
         public int ModelYear { get; set; }
         public string Patent { get; set; }
+        public List<Spending> VehicleSpendings { get; set; } = new List<Spending>();
+        public double Amount { get; set; }
 
     }
 }
