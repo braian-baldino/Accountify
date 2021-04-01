@@ -1,7 +1,10 @@
 ﻿using API.Errors;
+using Infrastructure.Repositories;
+using Infrastructure.Repositories.Interfaces;
 using Infrastructure.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
+using Model.Entities;
 using Model.Interfaces;
 using System.Linq;
 
@@ -13,6 +16,9 @@ namespace API.Extensions
         {
             //DI registration
             services.AddScoped<ITokenService, TokenService>();
+            services.AddScoped<IAnualBalanceRepository, AnualBalanceRepository>();
+            services.AddScoped<IBalanceRepository, BalanceRepository>();
+            services.AddScoped<ICommonRepository<Income,Spending>, IncomesAndSpendingsRepository>();
 
             //Error handling
             services.Configure<ApiBehaviorOptions>(options =>

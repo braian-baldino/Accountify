@@ -6,7 +6,6 @@
 
   <ItemGroup>
     <Folder Include="Contexts\Data\SeedData\" />
-    <Folder Include="Repositories\" />
   </ItemGroup>
 
   <ItemGroup>
