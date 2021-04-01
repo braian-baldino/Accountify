@@ -10,6 +10,7 @@
         Honorarios,
         Interes,
         Prestamo,
+        Reintegro,
         Otro
     }
 }

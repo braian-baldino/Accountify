@@ -6,9 +6,8 @@ namespace Model.Entities
 {
     public class Balance : BaseEntity
     {
-        [ForeignKey("AnualBalance")]
+        [ForeignKey("AnualBalances")]
         public int AnualBalanceId { get; set; }
-        public AnualBalance AnualBalance { get; set; }
         public EMonth Month { get; set; }
         public List<Income> Incomes { get; set; } = new List<Income>();
         public List<Spending> Spendings { get; set; } = new List<Spending>();

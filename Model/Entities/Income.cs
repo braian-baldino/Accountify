@@ -6,7 +6,7 @@ namespace Model.Entities
 {
     public class Income : BaseEntity
     {
-        [ForeignKey("Balance")]
+        [ForeignKey("Balances")]
         public int BalanceId { get; set; }
         public EIncomeCategory Category { get; set; }
         public string Description { get; set; }

@@ -29,10 +29,10 @@ namespace API
             services.AddControllers();
 
             //Context and Database
-            services.AddDbContext<DataContext>(options => options.UseSqlServer(_configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<DataContext>(options => options.UseSqlServer(_configuration.GetConnectionString(Constants.DefaultConnection)));
             services.AddDbContext<IdentityContext>(options =>
             {
-                options.UseSqlServer(_configuration.GetConnectionString("IdentityConnection"));
+                options.UseSqlServer(_configuration.GetConnectionString(Constants.IdentityConnection));
             });
 
             //Add other services by extion class

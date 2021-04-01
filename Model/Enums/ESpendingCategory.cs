@@ -10,9 +10,13 @@
         TCredito,
         Intereses,
         Vehiculo,
+        Transporte,
         Alimentos,
         Limpieza,
         Perdida,
+        Vacaciones,
+        Viaje,
+        Vicio,
         Otro
     }
 }

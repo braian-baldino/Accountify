@@ -5,14 +5,14 @@ namespace Model.Entities
 {
     public class Vehicle : BaseEntity
     {
-        [ForeignKey("AnualBalance")]
+        [ForeignKey("AnualBalances")]
         public int AnualBalanceId { get; set; }
         public string Brand { get; set; }
         public string Model { get; set; }
         public int ModelYear { get; set; }
         public string Patent { get; set; }
-        public List<Spending> VehicleSpendings { get; set; } = new List<Spending>();
-        public double Amount { get; set; }
+        public List<VehicleSpending> VehicleSpendings { get; set; } = new List<VehicleSpending>();
+        public double SpendingsAmount { get; set; }
 
     }
 }
