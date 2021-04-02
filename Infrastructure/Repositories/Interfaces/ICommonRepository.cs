@@ -12,6 +12,7 @@ namespace Infrastructure.Repositories.Interfaces
         Task<I> GetIncomeByIdAsync(int entityId);
         Task<I> UpdateIncomeAsync(I entity, bool amountUpdated);
         Task<I> DeleteIncomeAsync(I entity);
+        bool IncomeExists(int id);
         #endregion
 
         #region Spendings
@@ -20,6 +21,7 @@ namespace Infrastructure.Repositories.Interfaces
         Task<S> GetSpendingByIdAsync(int entityId);
         Task<S> UpdateSpendingAsync(S entity, bool amountUpdated);
         Task<S> DeleteSpendingAsync(S entity);
+        bool SpendingExists(int id);
         #endregion
     }
 }

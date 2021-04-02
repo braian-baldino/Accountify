@@ -131,6 +131,10 @@ namespace Infrastructure.Repositories
             return await _context.Spendings.ToListAsync();
         }
 
+        public bool IncomeExists(int id) => _context.Incomes.Any(i => i.Id == id);
+
+        public bool SpendingExists(int id) => _context.Spendings.Any(s => s.Id == id);
+
         public async Task<Income> UpdateIncomeAsync(Income entity, bool amountUpdated)
         {
             _context.Entry(entity).State = EntityState.Modified;

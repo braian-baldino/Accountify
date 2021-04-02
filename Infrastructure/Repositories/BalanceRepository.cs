@@ -79,5 +79,7 @@ namespace Infrastructure.Repositories
                 return null;
             }
         }
+
+        public bool EntityExists(int id) => _context.Balances.Any(b => b.Id == id);
     }
 }

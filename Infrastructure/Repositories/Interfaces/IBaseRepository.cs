@@ -10,5 +10,6 @@ namespace Infrastructure.Repositories.Interfaces
         Task<T> UpdateAsync(T entity);
         Task<T> GetByIdAsync(int entityId);
         Task<List<T>> GetAllAsync();
+        bool EntityExists(int id);
     }
 }

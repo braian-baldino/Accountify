@@ -39,12 +39,21 @@ namespace Infrastructure.Repositories
 
         public async Task<List<AnualBalance>> GetAllAsync()
         {
-            return await _context.AnualBalances.ToListAsync();
+            return await _context.AnualBalances
+                .Include(a => a.Balances)
+                .Include(a => a.Savings)
+                .Include(a => a.Vehicles)
+                .OrderByDescending(a => a.Year)
+                .ToListAsync();
         }
 
         public async Task<AnualBalance> GetByIdAsync(int entityId)
         {
-            return await _context.AnualBalances.Where(c => c.Id == entityId).FirstOrDefaultAsync();
+            return await _context.AnualBalances
+                .Include(a => a.Balances)
+                .Include(a => a.Savings)
+                .Include(a => a.Vehicles)
+                .Where(c => c.Id == entityId).FirstOrDefaultAsync();
         }
 
         public async Task<AnualBalance> UpdateAsync(AnualBalance entity)
@@ -78,5 +87,6 @@ namespace Infrastructure.Repositories
             }
         }
 
+        public bool EntityExists(int id) => _context.AnualBalances.Any(a => a.Id == id);
     }
 }
