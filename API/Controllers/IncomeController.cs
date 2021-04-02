@@ -41,13 +41,9 @@ namespace API.Controllers
         {
             if (income == null || id != income.Id) return BadRequest();
 
-            var currentIncome = await _commonRepository.GetIncomeByIdAsync(id);
+            if (!_commonRepository.IncomeExists(id)) return NotFound(new ApiResponse(404));
 
-            if (currentIncome == null) return NotFound(new ApiResponse(404));
-
-            var shouldReCalculate = income.Amount != currentIncome.Amount;
-
-            await _commonRepository.UpdateIncomeAsync(income, shouldReCalculate);
+            await _commonRepository.UpdateIncomeAsync(income, true);
 
             return NoContent();
         }
