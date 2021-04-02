@@ -158,10 +158,12 @@ namespace Infrastructure.Repositories
 
         public async Task<Spending> UpdateSpendingAsync(Spending entity, bool amountUpdated)
         {
-            _context.Entry(entity).State = EntityState.Modified;
+            
 
             try
             {
+                _context.Entry(entity).State = EntityState.Modified;
+
                 await _context.SaveChangesAsync();
 
                 if (amountUpdated)

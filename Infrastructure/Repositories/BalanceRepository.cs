@@ -39,12 +39,20 @@ namespace Infrastructure.Repositories
 
         public async Task<List<Balance>> GetAllAsync()
         {
-            return await _context.Balances.ToListAsync();
+            return await _context.Balances
+                .Include(b => b.Incomes)
+                .Include(b => b.Spendings)
+                .ToListAsync();
         }
 
         public async Task<Balance> GetByIdAsync(int entityId)
         {
-            return await _context.Balances.Where(c => c.Id == entityId).FirstOrDefaultAsync();
+            return await _context.Balances
+                .Include(b => b.Incomes)
+                .Include(b => b.Spendings)
+                .OrderBy(b => b.Month)
+                .Where(c => c.Id == entityId)
+                .FirstOrDefaultAsync();
         }
 
         public Task<Balance> UpdateAsync(Balance entity)
