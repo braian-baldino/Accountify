@@ -57,6 +57,36 @@ namespace API.Controllers
             return CreatedAtAction("GetAnualBalance", new { id = result.Id }, result);
         }
 
+        // POST api/<AnualBalanceController>/add-savings
+        [HttpPost]
+        [Route("add-savings")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<AnualBalance>> PostSavings(Savings savings)
+        {
+            if (savings == null) return BadRequest(new ApiResponse(400));
+
+            var result = await _anualBalanceRepository.AddSavingsAsync(savings);
+
+            if (result == null) return BadRequest(new ApiResponse(400));
+
+            return CreatedAtAction("GetAnualBalance", new { id = result.Id }, result);
+        }
+
+        // PUT: api/AnualBalance/update-savings
+        [HttpPut]
+        [Route("update-savings/{id}")]
+        public async Task<IActionResult> PutSavings(int id, Savings savings)
+        {
+            if (savings == null || id != savings.Id) return BadRequest();
+
+            if (!_anualBalanceRepository.SavingsExists(id)) return NotFound(new ApiResponse(404));
+
+            await _anualBalanceRepository.UpdateSavingsAsync(savings);
+
+            return NoContent();
+        }
+
         // PUT api/<AnualBalanceController>/5
         [HttpPut("{id}")]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status405MethodNotAllowed)]

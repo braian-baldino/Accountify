@@ -85,8 +85,44 @@ namespace Infrastructure.Repositories
                 logger.LogError(ex.Message);
                 return null;
             }
+        }   
+
+        public async Task<Savings> AddSavingsAsync(Savings entity)
+        {
+            try
+            {
+                await _context.Savings.AddAsync(entity);
+                await _context.SaveChangesAsync();
+                return entity;
+            }
+            catch (Exception ex)
+            {
+                var logger = _loggerFactory.CreateLogger<DataContext>();
+                logger.LogError(ex.Message);
+                return null;
+            }
+        }
+
+        public async Task<Savings> UpdateSavingsAsync(Savings entity)
+        {
+            try
+            {
+                _context.Entry(entity).State = EntityState.Modified;
+                await _context.SaveChangesAsync();
+
+                return entity;
+            }
+            catch (Exception ex)
+            {
+                var logger = _loggerFactory.CreateLogger<DataContext>();
+                logger.LogError(ex.Message);
+                return null;
+            }
         }
 
         public bool EntityExists(int id) => _context.AnualBalances.Any(a => a.Id == id);
+
+        public bool SavingsExists(int savingsId) => _context.Savings.Any(s => s.Id == savingsId);
+    
     }
 }
