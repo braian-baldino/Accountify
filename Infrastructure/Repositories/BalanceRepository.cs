@@ -74,6 +74,8 @@ namespace Infrastructure.Repositories
                 entity.Incomes.ForEach(i => totalIncomes += i.Amount);
                 entity.Spendings.ForEach(s => totalSpendings += s.Amount);
 
+                entity.TotalIncomesResult = totalIncomes;
+                entity.TotalSpendingsResult = totalSpendings;
                 entity.Result = totalIncomes - totalSpendings;
                 entity.Positive = entity.Result >= 0;
 
