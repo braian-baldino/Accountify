@@ -1,0 +1,10 @@
+@import '../../utilities/colors.module.scss';
+@import '../../utilities/mixins.module.scss';
+
+.NavItems {
+  @include flexRowBetween();
+  @include links(#ffff);
+
+  margin-left: 8%;
+  max-width: 50%;
+}

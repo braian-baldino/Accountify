@@ -1,0 +1,6 @@
+@import '../../../utilities/colors.module.scss';
+@import '../../../utilities/mixins.module.scss';
+
+.CardsList {
+  @include grid(3%);
+}

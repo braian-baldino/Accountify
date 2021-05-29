@@ -1,0 +1,7 @@
+@import '../../utilities/colors.module.scss';
+@import '../../utilities/mixins.module.scss';
+
+.NavBar {
+  flex-grow: 1;
+  @include glass;
+}

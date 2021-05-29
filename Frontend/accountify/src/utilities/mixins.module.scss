@@ -1,0 +1,84 @@
+@import './colors.module.scss';
+
+@mixin whiteCenteredBox($widht) {
+  background-color: white;
+  width: $widht;
+  margin: 0 auto;
+  border-radius: 4px;
+}
+
+@mixin flexRowEvenly {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+@mixin flexRowBetween {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@mixin flexRowAround {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+@mixin links($color) {
+  a:active,
+  :link,
+  :visited {
+    color: $color;
+    text-decoration: none;
+  }
+}
+
+@mixin icon($color, $hoverColor, $squareSize) {
+  color: $color;
+  height: $squareSize;
+  width: $squareSize;
+  &:hover {
+    color: $hoverColor;
+  }
+}
+
+@mixin glass($borderRadius) {
+  border-radius: $borderRadius;
+  background: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 8px 32px 0 rgba(107, 107, 107, 0.842);
+  backdrop-filter: blur(4px);
+}
+
+@mixin grid($marginTop) {
+  display: grid;
+  max-width: 80%;
+  margin: 0 auto;
+  margin-top: $marginTop;
+
+  // grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fill, 20em);
+
+  grid-gap: 4%;
+}
+
+@mixin scrollBar {
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 6px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: $waterMelon;
+    border-radius: 6px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: $green;
+  }
+}

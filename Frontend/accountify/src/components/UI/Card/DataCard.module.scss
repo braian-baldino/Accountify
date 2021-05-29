@@ -1,0 +1,39 @@
+@import '../../../utilities/colors.module.scss';
+@import '../../../utilities/mixins.module.scss';
+
+.Card {
+  max-width: 345px;
+}
+
+.Negative {
+  border: 2px solid $red;
+}
+
+.CardHeader {
+  background-color: $black;
+  color: $green2;
+  height: 30px;
+}
+
+.CardItemsList {
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: space-evenly;
+}
+
+.CardItem {
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+}
+
+.CardItem label {
+  font-weight: bold;
+}
+
+.BottomIcons {
+  display: flex;
+  justify-content: space-around;
+}

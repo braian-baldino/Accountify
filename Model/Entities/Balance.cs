@@ -11,6 +11,8 @@ namespace Model.Entities
         public EMonth Month { get; set; }
         public List<Income> Incomes { get; set; } = new List<Income>();
         public List<Spending> Spendings { get; set; } = new List<Spending>();
+        public double TotalIncomesResult { get; set; }
+        public double TotalSpendingsResult { get; set; }
         public double Result { get; set; }
         public bool Positive { get; set; }
     }

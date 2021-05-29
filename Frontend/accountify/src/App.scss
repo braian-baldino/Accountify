@@ -1,0 +1,29 @@
+@import './utilities/mixins.module.scss';
+
+body {
+  background-image: url('./assets/background3.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+}
+
+.App {
+  // @include scrollBar;}
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 6px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: $waterMelon;
+    border-radius: 6px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: $green;
+  }
+}
