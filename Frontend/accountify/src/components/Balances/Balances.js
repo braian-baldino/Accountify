@@ -8,6 +8,7 @@ import Dropdown from '../UI/Dropdown';
 import RadioButtons from '../UI/RadioButtons';
 import styles from './Balances.module.scss';
 import AnualBalanceBar from '../AnualBalances/AnualBalanceBar';
+import axios from 'axios';
 
 const labels = ['Ingresos', 'Egresos', 'Balance'];
 const keys = ['totalIncomesResult', 'totalSpendingsResult', 'result'];
@@ -81,10 +82,19 @@ const mapData = data => {
 };
 
 const mapYearInfo = anualBalance => {
+  let savingsPesos = 0;
+  let savingsUsd = 0;
+  let result = 0;
+
+  anualBalance.map(element => {
+    savingsPesos = element.savings[0].amount;
+    result = element.result;
+  });
+
   return [
-    { label: 'Ahorros $', value: `$${anualBalance.savings[0]['amount']}` },
-    { label: 'Ahorros USD', value: `$${anualBalance.savings[1]['amount']}` },
-    { label: 'Balance', value: '$' + anualBalance.result },
+    { label: 'Ahorros $', value: '$' + savingsPesos },
+    { label: 'Ahorros USD', value: '$' + savingsUsd },
+    { label: 'Balance', value: '$' + result },
   ];
 };
 
@@ -93,12 +103,24 @@ const selectedAnualBalance = (data, year) => {
 };
 
 const Balances = props => {
-  const [data, setData] = useState(mockData);
+  const [data, setData] = useState();
   const [balances, setBalances] = useState();
+  const [selectValues, setSelectValues] = useState();
   const [dropdownValue, setDropdownValue] = useState(new Date().getFullYear());
 
   useEffect(() => {
+    if (!data) {
+      axios
+        .get('http://localhost:5000/api/anualBalance')
+        .then(res => setData(res.data));
+    }
+
     if (data) {
+      const availableYears = data.map(anual => {
+        return { label: anual.year.toString(), value: anual.year };
+      });
+      setSelectValues(availableYears);
+
       const filteredAnual = selectedAnualBalance(data, dropdownValue);
       const selectedBalances = filteredAnual.map(anual => anual.balances);
       setBalances(...selectedBalances);
@@ -110,7 +132,7 @@ const Balances = props => {
   };
 
   const anualBalance = data && selectedAnualBalance(data, dropdownValue);
-  const anualInfo = anualBalance && mapYearInfo(...anualBalance);
+  const anualInfo = anualBalance && mapYearInfo(anualBalance);
   const mappedData = balances && mapData(balances);
 
   return (
