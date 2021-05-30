@@ -87,7 +87,8 @@ const mapYearInfo = anualBalance => {
   let result = 0;
 
   anualBalance.map(element => {
-    savingsPesos = element.savings[0].amount;
+    console.log('mapYearInfo',element);
+    savingsPesos = element.savings.amount??0;
     result = element.result;
   });
 
@@ -111,7 +112,7 @@ const Balances = props => {
   useEffect(() => {
     if (!data) {
       axios
-        .get('http://localhost:5000/api/anualBalance')
+        .get('https://localhost:5001/api/anualBalance')
         .then(res => setData(res.data));
     }
 

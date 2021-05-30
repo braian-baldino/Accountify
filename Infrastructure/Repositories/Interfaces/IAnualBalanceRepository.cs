@@ -9,5 +9,6 @@ namespace Infrastructure.Repositories.Interfaces
         Task<Savings> AddSavingsAsync(Savings entity);
         Task<Savings> UpdateSavingsAsync(Savings entity);
         bool SavingsExists(int savingsId);
+        bool AvailableAnualBalance(int year);
     }
 }

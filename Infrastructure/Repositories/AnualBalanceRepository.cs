@@ -3,6 +3,7 @@ using Infrastructure.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Model.Entities;
+using Model.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,12 +22,35 @@ namespace Infrastructure.Repositories
             _loggerFactory = loggerFactory;
         }
 
-        public async Task<AnualBalance> AddAsync(AnualBalance entity)
+        private async Task<AnualBalance> CreateAnualBalance(AnualBalance entity)
         {
             try
             {
                 await _context.AnualBalances.AddAsync(entity);
                 await _context.SaveChangesAsync();
+                return entity;
+            }
+            catch (Exception ex)
+            {
+                var logger = _loggerFactory.CreateLogger<DataContext>();
+                logger.LogError(ex.Message);
+                return null;
+            }
+        }
+
+        public async Task<AnualBalance> AddAsync(AnualBalance entity)
+        {
+            try
+            {
+                var result = await CreateAnualBalance(entity);
+
+                if(result == null)
+                {
+                    throw new Exception();
+                }
+
+                result = await CreateBalances(entity);
+
                 return entity;
             }
             catch (Exception ex)
@@ -122,7 +146,34 @@ namespace Infrastructure.Repositories
 
         public bool EntityExists(int id) => _context.AnualBalances.Any(a => a.Id == id);
 
+        public bool AvailableAnualBalance(int year) => !_context.AnualBalances.Any(a => a.Year == year);
+
         public bool SavingsExists(int savingsId) => _context.Savings.Any(s => s.Id == savingsId);
-    
+
+        private async Task<AnualBalance> CreateBalances(AnualBalance entity)
+        {
+            try
+            {
+                var newBalances = new List<Balance>();
+                foreach (var monthValue in Enum.GetValues(typeof(EMonth)))
+                {
+                    newBalances.Add(new Balance() { AnualBalanceId = entity.Id, Month = (EMonth)monthValue, Positive = true });
+                }
+
+                await _context.Balances.AddRangeAsync(newBalances);
+
+                _context.Entry(entity).State = EntityState.Modified;
+                entity.Balances = newBalances;
+
+                await _context.SaveChangesAsync();
+                return entity;
+            }
+            catch (Exception ex)
+            {
+                var logger = _loggerFactory.CreateLogger<DataContext>();
+                logger.LogError(ex.Message);
+                return null;
+            }
+        }
     }
 }

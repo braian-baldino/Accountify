@@ -48,7 +48,10 @@ namespace API.Controllers
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<AnualBalance>> PostAnualBalance(AnualBalance anualBalance)
         {
-            if (anualBalance == null) return BadRequest(new ApiResponse(400));
+            if (anualBalance == null || !_anualBalanceRepository.AvailableAnualBalance(anualBalance.Year))
+            {
+                return BadRequest(new ApiResponse(400));
+            }
 
             var result = await _anualBalanceRepository.AddAsync(anualBalance);
 
